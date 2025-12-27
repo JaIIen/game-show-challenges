@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://jallen.github.io/game-show-challenges",
+  "homepage": "https://JaIIen.github.io/game-show-challenges",
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
     "react": "^19.2.0",
