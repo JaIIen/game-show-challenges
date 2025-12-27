@@ -1,0 +1,809 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0 0 0.5rem 0;
+}
+
+.reset-hint {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.team-score-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-score {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-left: 4px solid;
+  position: relative;
+  transition: transform 0.2s, border-radius 0.2s;
+  cursor: pointer;
+}
+
+.team-score:hover {
+  transform: translateY(-2px);
+}
+
+.team-score.expanded {
+  border-radius: 12px 12px 0 0;
+}
+
+.team-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.team-info {
+  flex: 1;
+}
+
+.team-members {
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 0.25rem;
+}
+
+.team-points {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #667eea;
+}
+
+.btn-delete-team {
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-delete-team:hover {
+  background: #ee5a6f;
+}
+
+/* Team Details Dropdown */
+.team-details {
+  background: white;
+  border-radius: 0 0 12px 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid;
+}
+
+.team-actions {
+  margin-bottom: 1.5rem;
+}
+
+.btn-edit-points {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-edit-points:hover {
+  transform: translateY(-2px);
+}
+
+.manual-points-input {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.points-quick-input {
+  flex: 1;
+  min-width: 80px;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.points-quick-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-add-points,
+.btn-subtract-points,
+.btn-cancel-points {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-add-points {
+  background: #10B981;
+  color: white;
+}
+
+.btn-add-points:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-subtract-points {
+  background: #FF4757;
+  color: white;
+}
+
+.btn-subtract-points:hover {
+  background: #ee5a6f;
+  transform: translateY(-2px);
+}
+
+.btn-cancel-points {
+  background: #e0e0e0;
+  color: #2d3436;
+}
+
+.btn-cancel-points:hover {
+  background: #d0d0d0;
+}
+
+.team-history h4 {
+  margin: 0 0 1rem 0;
+  color: #2d3436;
+  font-size: 1.1rem;
+}
+
+.team-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-history li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.team-history li.positive {
+  background: #ecfdf5;
+  border-left: 3px solid #10B981;
+}
+
+.team-history li.negative {
+  background: #fef2f2;
+  border-left: 3px solid #FF4757;
+}
+
+.points-change {
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 60px;
+}
+
+.team-history li.positive .points-change {
+  color: #10B981;
+}
+
+.team-history li.negative .points-change {
+  color: #FF4757;
+}
+
+.challenge-name {
+  flex: 1;
+  color: #636e72;
+  font-weight: 500;
+}
+
+.timestamp {
+  color: #b2bec3;
+  font-size: 0.85rem;
+}
+
+.no-history {
+  color: #b2bec3;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.collapse-btn {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: white;
+  border: none;
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3436;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.collapse-btn:hover {
+  background: #f8f9fa;
+}
+
+.challenge-form,
+.team-form {
+  padding: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.input-title,
+.input-description {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.input-title:focus,
+.input-description:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.input-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.input-description {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Color Selector */
+.color-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.color-option {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  font-size: 1.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-option:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.color-option.selected {
+  border-color: #2d3436;
+}
+
+.color-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-add {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+/* Challenges Grid */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.challenge-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.challenge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.challenge-card.completed {
+  background: #f0fdf4;
+  cursor: default;
+}
+
+.challenge-card.completed::before {
+  background: currentColor;
+}
+
+.btn-delete {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.btn-delete:hover {
+  background: #ee5a6f;
+  transform: rotate(90deg);
+}
+
+.challenge-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  margin-right: 2rem;
+  word-wrap: break-word;
+}
+
+.challenge-description {
+  color: #636e72;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+  word-wrap: break-word;
+}
+
+.completed-badges {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 150px;
+}
+
+.completed-badge {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.challenge-border-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 0 0 12px 12px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.empty-state p {
+  color: white;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal h2 {
+  margin: 0 0 1rem 0;
+  color: #2d3436;
+}
+
+.modal-challenge-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 1.5rem;
+}
+
+.team-selection p {
+  margin-bottom: 1rem;
+  color: #636e72;
+}
+
+.team-option {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color 0.2s, transform 0.2s;
+  font-size: 1rem;
+}
+
+.team-option:hover {
+  border-color: #667eea;
+  transform: translateX(4px);
+}
+
+.team-badge-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.points-input-section {
+  margin-top: 1.5rem;
+}
+
+.points-input-section p {
+  margin-bottom: 1rem;
+  color: #636e72;
+}
+
+.points-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.points-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-confirm,
+.btn-back,
+.btn-close-modal {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-confirm {
+  flex: 1;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.6);
+}
+
+.btn-back {
+  flex: 1;
+  background: #e0e0e0;
+  color: #2d3436;
+}
+
+.btn-back:hover {
+  background: #d0d0d0;
+}
+
+.btn-close-modal {
+  width: 100%;
+  margin-top: 1rem;
+  background: #f8f9fa;
+  color: #636e72;
+}
+
+.btn-close-modal:hover {
+  background: #e9ecef;
+}
+
+/* Admin Controls */
+.admin-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.btn-admin {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-admin:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-admin-logout {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 71, 87, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 71, 87, 0.4);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-admin-logout:hover {
+  background: rgba(255, 71, 87, 0.3);
+  border-color: rgba(255, 71, 87, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Password Modal */
+.password-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.3rem;
+}
+
+.password-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.password-error {
+  color: #ff4757;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .challenges-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scoreboard {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    padding: 1.5rem;
+  }
+}
